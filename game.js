@@ -137,7 +137,7 @@ const TREASURE_TYPES = {
 
 /* ===== 第一关：18 个宝藏（8 大 + 6 中 + 4 小），目标 1,000 分 ===== */
 const LEVEL_1 = {
-  name: 'Chapter 1 - Target: 1,000',
+  name: '第1章 - 目標：1,000',
   timeLimit: 60,
   target: 1000,
   treasures: [
@@ -169,7 +169,7 @@ const LEVEL_1 = {
 
 /* ===== 第二关：16 个宝藏（10 大 + 4 小 + 2 特大），目标 3,000 分 ===== */
 const LEVEL_2 = {
-  name: 'Chapter 2 - Target: 3,000',
+  name: '第2章 - 目標：3,000',
   timeLimit: 60,
   target: 3000,
   // ---- 小偷轨道：y = 轨道高度，dir: 1 从左侧边缘向右，-1 从右侧边缘向左 ----
@@ -204,7 +204,7 @@ const LEVEL_2 = {
 
 /* ===== 第三关：目标 8,000 分（通关判定见下方 target 字段） ===== */
 const LEVEL_3 = {
-  name: 'Chapter 3 - Target: 8,000',
+  name: '第3章 - 目標：8,000',
   timeLimit: 60,
   target: 8000,
   // ---- 小偷轨道：中层 y=350 两个，深层 y=550 两个，对向巡逻 ----
@@ -297,14 +297,14 @@ const TREASURE_FALLBACK = {
  *  DISCORD_CHANNEL_URL   : 分享成功后的频道跳转地址
  *  DISCORD_SHARE_IMAGE   : 战报卡片图片
  * ---------------------------------------------------------------------- */
-const DISCORD_CLIENT_ID = '1569624792594653204';
-const DISCORD_REDIRECT_URI = 'https://identity-v-ngp.github.io/mine/';
+const DISCORD_CLIENT_ID = '1569656414534639646';
+const DISCORD_REDIRECT_URI = 'https://identity-v-ngp.github.io/mine-jp/';
 const DISCORD_WEBHOOK_URL =
-  'https://discord.com/api/webhooks/1569621677338402866/7OZ2ajXsABkSAisIM4X0sjLrZxrzoVr8xip15bTrKEUsxRymv3OyM8SbIXPL0wgpK8Fb';
+  'https://discord.com/api/webhooks/1569654924709597186/T5ODdjJvN4sqJM0Y1NIZDTVVAmBEGnTyFW4tMfcr99FDfDxAtDC0Ll28yTVXBpwQJSWR';
 const DISCORD_CHANNEL_URL =
-  'https://discord.com/channels/611028792911200256/1569619127012827146';
+  'https://discord.com/channels/687593994884087809/1569654728495730718';
 const DISCORD_SHARE_IMAGE =
-  'https://cdn.discordapp.com/attachments/1286509730264776734/1569620630578397254/card.jpg?ex=6af41ea0&is=6af2cd20&hm=7af1b6631d8f479768ed5c671d8707f30c1a9163d3b2de03d4bc86849b6393ec&';
+  'https://cdn.discordapp.com/attachments/1537350740975034409/1569656162801156266/card.jpg?ex=6af43fb8&is=6af2ee38&hm=7a1c82480fe486d27130eb156354b34e407828b193fb1df0e0cf4d5349b87bfe&';
 
 /** 隐式授权地址（response_type=token，无需 client secret） */
 const DISCORD_AUTH_URL =
@@ -312,10 +312,10 @@ const DISCORD_AUTH_URL =
   '&response_type=token&scope=identify&redirect_uri=' + encodeURIComponent(DISCORD_REDIRECT_URI);
 
 /** 玩家信息缓存 key 与游客兜底身份 */
-const PLAYER_STORAGE_KEY = 'ngpMinerPlayer';
+const PLAYER_STORAGE_KEY = 'ngpMinerPlayerJp';
 const PLAYER_AUTH_FLAG_KEY = 'ngpMinerAuthTried';
-const PLAYER_FALLBACK_NAME = 'Adventurer';
-const PLAYER_FALLBACK_ID = 'Guest';
+const PLAYER_FALLBACK_NAME = '冒険者';
+const PLAYER_FALLBACK_ID = 'ゲスト';
 
 /* =========================================================================
  *  ▍第二部分：游戏状态与核心常量
@@ -477,9 +477,9 @@ function sumChapterScores() {
 function chapterBreakdown() {
   const parts = [];
   for (let i = 0; i < game.chapterScores.length; i++) {
-    parts.push('Ch' + (i + 1) + ' ' + formatNumber(game.chapterScores[i] || 0));
+    parts.push('第' + (i + 1) + '章 ' + formatNumber(game.chapterScores[i] || 0));
   }
-  return parts.join(' \u00b7 ');
+  return parts.join(' ・ ');
 }
 
 function endGame() {
@@ -490,7 +490,7 @@ function endGame() {
   const idx = game.levelIndex;
   const isFinalChapter = idx === LEVELS.length - 1;
   const passed = game.score >= level.target;
-  const chapterLabel = 'Chapter ' + (idx + 1) + ' Complete';
+  const chapterLabel = '第' + (idx + 1) + '章 クリア';
 
   // 记录本关净得分（用于终极结算的分关明细）
   game.chapterScores[idx] = game.score - game.baseScore;
@@ -500,12 +500,12 @@ function endGame() {
     if (!passed) {
       showResult({
         eyebrow: chapterLabel,
-        title: 'Challenge Failed',
+        title: 'チャレンジ失敗',
         score: game.score,
         detail:
-          'Target ' + formatNumber(level.target) +
-          ' \u00b7 Short by ' + formatNumber(level.target - game.score),
-        note: 'The final vault is still sealed. Try again for the ' +
+          '目標 ' + formatNumber(level.target) +
+          ' ・ あと ' + formatNumber(level.target - game.score),
+        note: '最深部の扉は閉ざされたままだ。目標 ' +
           formatNumber(level.target) + ' target.',
         showRetry: true
       });
@@ -516,11 +516,11 @@ function endGame() {
     game.finalScore = game.score;
 
     showResult({
-      eyebrow: 'All Chapters Cleared',
-      title: 'Victory!',
+      eyebrow: '全チャプター制覇',
+      title: '完全制覇！',
       score: sumChapterScores(),
       detail: chapterBreakdown(),
-      note: 'Take a screenshot and share your success through the button below.',
+      note: 'スクリーンショットを撮って、下のボタンから戦績をシェアしよう。',
       showShare: true,
       showAgain: true,
       showPlayer: true
@@ -532,21 +532,21 @@ function endGame() {
   if (passed) {
     showResult({
       eyebrow: chapterLabel,
-      title: 'Target Cleared!',
+      title: '目標達成！',
       score: game.score,
-      detail: 'Target ' + formatNumber(level.target) + ' \u00b7 Reached',
-      note: 'Chapter ' + (idx + 2) + ' awaits. Keep mining.',
+      detail: '目標 ' + formatNumber(level.target) + ' ・ 達成',
+      note: '次は第' + (idx + 2) + '章。採掘を続けよう。',
       showNext: true
     });
   } else {
     showResult({
       eyebrow: chapterLabel,
-      title: 'Challenge Failed',
+      title: 'チャレンジ失敗',
       score: game.score,
       detail:
-        'Target ' + formatNumber(level.target) +
-        ' \u00b7 Short by ' + formatNumber(level.target - game.score),
-      note: 'Mine faster and go for the deep high-value treasures to reach the target.',
+        '目標 ' + formatNumber(level.target) +
+        ' ・ あと ' + formatNumber(level.target - game.score),
+      note: 'もっと素早く掘り進めて、深部の高価値なお宝を狙い、目標を達成しよう。',
       showRetry: true
     });
   }
@@ -625,7 +625,7 @@ function collectTreasure() {
     game.popups.push({
       x: VIEW.width / 2,
       y: 300,
-      text: 'Thief stole ' + THIEF.penalty + ' pts!',
+      text: '盗人に' + THIEF.penalty + 'ポイント奪われた！',
       life: THIEF.penaltyTextLife,
       maxLife: THIEF.penaltyTextLife,
       fade: THIEF.penaltyTextFade,
@@ -1025,12 +1025,12 @@ function drawHUD() {
 
   // ---- TIME 行 ----
   ctx.textAlign = 'left';
-  ctx.font = '600 13px "PingFang SC", "Helvetica Neue", system-ui, sans-serif';
+  ctx.font = '600 13px "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif';
   ctx.fillStyle = 'rgba(159, 176, 200, 0.95)';
-  ctx.fillText('TIME', boxX + padX, boxY + 30);
+  ctx.fillText('残り時間', boxX + padX, boxY + 30);
 
   ctx.textAlign = 'right';
-  ctx.font = '700 26px "PingFang SC", "Helvetica Neue", system-ui, sans-serif';
+  ctx.font = '700 26px "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif';
   ctx.fillStyle = urgent ? '#ff8371' : '#ffd98a';
   ctx.fillText(formatTime(game.timeLeft), boxX + boxW - padX, boxY + 30);
 
@@ -1044,27 +1044,27 @@ function drawHUD() {
 
   // ---- SCORE 行 ----
   ctx.textAlign = 'left';
-  ctx.font = '600 13px "PingFang SC", "Helvetica Neue", system-ui, sans-serif';
+  ctx.font = '600 13px "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif';
   ctx.fillStyle = 'rgba(159, 176, 200, 0.95)';
-  ctx.fillText('SCORE', boxX + padX, boxY + 66);
+  ctx.fillText('スコア', boxX + padX, boxY + 66);
 
   ctx.textAlign = 'right';
-  ctx.font = '700 26px "PingFang SC", "Helvetica Neue", system-ui, sans-serif';
+  ctx.font = '700 26px "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif';
   ctx.fillStyle = '#f4f8ff';
   ctx.fillText(String(game.score), boxX + boxW - padX, boxY + 66);
 
   // ---- 右上角关卡信息 ----
   ctx.textAlign = 'right';
-  ctx.font = '600 15px "PingFang SC", "Helvetica Neue", system-ui, sans-serif';
+  ctx.font = '600 15px "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif';
   ctx.fillStyle = 'rgba(198, 214, 235, 0.72)';
   ctx.fillText(game.level.name, VIEW.width - 28, 44);
 
   // ---- 右上角操作提示（整局常驻，进入结算页后随 HUD 一起隐藏）----
-  ctx.font = '500 12px "PingFang SC", "Helvetica Neue", system-ui, sans-serif';
+  ctx.font = '500 12px "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif';
   ctx.fillStyle = 'rgba(178, 194, 216, 0.82)';
   ctx.shadowColor = 'rgba(0, 0, 0, 0.75)';
   ctx.shadowBlur = 5;
-  ctx.fillText('Click / Tap / Space to launch the pickaxe', VIEW.width - 28, 70);
+  ctx.fillText('クリック／タップ／スペースで発射', VIEW.width - 28, 70);
   ctx.shadowBlur = 0;
 
   ctx.restore();
@@ -1080,7 +1080,7 @@ function drawPopups() {
     // fade 存在时：先保持满不透明，最后 fade 秒内平滑淡出
     const alpha = Math.max(0, Math.min(1, p.life / (p.fade || p.maxLife)));
     ctx.globalAlpha = alpha;
-    ctx.font = '700 ' + (p.size || 26) + 'px "PingFang SC", "Microsoft YaHei", system-ui, sans-serif';
+    ctx.font = '700 ' + (p.size || 26) + 'px "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif';
     ctx.fillStyle = p.color || '#ffd98a';
     ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
     ctx.shadowBlur = 6;
@@ -1311,10 +1311,10 @@ async function fetchDiscordUser(accessToken) {
 function renderPlayerLabels() {
   const idText = player.id || PLAYER_FALLBACK_ID;
   if (startPlayerEl) {
-    startPlayerEl.textContent = 'Miner: ' + player.username + ' (ID: ' + idText + ')';
+    startPlayerEl.textContent = 'マイナー：' + player.username + '（ID: ' + idText + '）';
   }
   if (overPlayerEl) {
-    overPlayerEl.textContent = 'Player: ' + player.username + ' | ID: ' + idText;
+    overPlayerEl.textContent = 'プレイヤー：' + player.username + ' ｜ ID: ' + idText;
   }
 }
 
@@ -1392,7 +1392,7 @@ async function initDiscordAuth() {
 function resetShareButton() {
   if (!shareBtnEl) return;
   shareBtnEl.disabled = false;
-  shareBtnEl.textContent = 'Share to Discord';
+  shareBtnEl.textContent = 'Discordでシェア';
   if (channelLinkEl) channelLinkEl.hidden = true;
 }
 
@@ -1401,21 +1401,21 @@ function buildSharePayload(totalScore) {
   const mention = player.id ? '<@' + player.id + '>' : player.username;
   const content = player.id
     ? mention +
-      ' Congratulations! You have successfully conquered all chapters of Abyssal Treasure Digger! Total treasure secured! 🏆'
-    : 'Congratulations Adventurer! You have conquered all chapters of Abyssal Treasure Digger! 🏆';
+      ' おめでとうございます！「深淵トレジャーディガー」全チャプター制覇達成！莫大なお宝を手に入れました！🏆'
+    : 'おめでとう、冒険者！「深淵トレジャーディガー」全チャプターを制覇した！🏆';
 
   return {
     content: content,
     embeds: [
       {
-        title: '🏆 Abyssal Treasure Digger: Ultimate Victory',
+        title: '🏆 深淵トレジャーディガー：完全制覇',
         description:
-          '**Player:** ' + mention + '\n' +
-          '**Total Score:** ' + formatNumber(totalScore) + ' pts\n' +
-          '**Status:** Certified Master Miner ⛏️',
+          '**プレイヤー:** ' + mention + '\n' +
+          '**総獲得スコア:** ' + formatNumber(totalScore) + ' pts\n' +
+          '**称号:** マスター・マイナー認定 ⛏️',
         color: 0xFFD700,
         image: { url: DISCORD_SHARE_IMAGE },
-        footer: { text: 'Abyssal Treasure Digger | Identity V NGP' },
+        footer: { text: '深淵トレジャーディガー ｜ 第五人格 NGP' },
         timestamp: new Date().toISOString()
       }
     ]
@@ -1429,7 +1429,7 @@ async function shareToDiscord() {
   const totalScore = game.finalScore || game.score;
 
   shareBtnEl.disabled = true;
-  shareBtnEl.textContent = 'Sharing...';
+  shareBtnEl.textContent = '送信中...';
   if (channelLinkEl) channelLinkEl.hidden = true;
 
   try {
@@ -1441,12 +1441,12 @@ async function shareToDiscord() {
 
     if (!res.ok) throw new Error('HTTP ' + res.status);
 
-    shareBtnEl.textContent = 'Shared Successfully! 🎉';
+    shareBtnEl.textContent = 'シェア成功！🎉';
     if (channelLinkEl) channelLinkEl.hidden = false;
   } catch (err) {
     console.warn('[discord] webhook post failed:', err);
     shareBtnEl.disabled = false;
-    shareBtnEl.textContent = 'Failed to share';
+    shareBtnEl.textContent = 'シェアに失敗しました';
     if (channelLinkEl) channelLinkEl.hidden = false;
   }
 }

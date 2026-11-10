@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta
@@ -7,52 +7,51 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
   />
   <meta name="theme-color" content="#070a10" />
-  <title>Abyssal Treasure Digger</title>
+  <title>深淵トレジャーディガー</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="stage">
     <canvas id="game" width="600" height="800"></canvas>
 
-    <!-- ===================== 开始界面 ===================== -->
+    <!-- ===================== 開始画面 ===================== -->
     <div class="overlay" id="startScreen">
       <div class="panel">
-        <p class="eyebrow">Identity V &middot; NGP Discord</p>
-        <h1 class="title">Abyssal Treasure Digger</h1>
-        <p class="player-line" id="startPlayer">Miner: Adventurer (ID: Guest)</p>
-        <button class="btn btn-primary" id="startBtn" type="button">Start Challenge</button>
+        <p class="eyebrow">第五人格 ・ NGP Discord</p>
+        <h1 class="title">深淵トレジャーディガー</h1>
+        <p class="player-line" id="startPlayer">マイナー：冒険者（ID: ゲスト）</p>
+        <button class="btn btn-primary" id="startBtn" type="button">採掘スタート</button>
         <p class="footnote">
-          Launch your pickaxe within the time limit and mine as many high-value treasures as
-          possible.
+          制限時間内にピッケルを発射して、価値の高いお宝をできるだけ多く掘り出そう。
         </p>
       </div>
     </div>
 
-    <!-- ===================== 结算界面（第一关胜负分支 / 第二关终极结算） ===================== -->
+    <!-- ===================== リザルト画面 ===================== -->
     <div class="overlay is-hidden" id="overScreen">
       <div class="panel">
-        <p class="eyebrow" id="overEyebrow">Shift Complete</p>
-        <h2 class="title title-sm" id="overTitle">Time's Up!</h2>
-        <p class="result">Total Treasure Value: <span id="overScore">0</span></p>
-        <p class="result result-sub" id="overPlayer" hidden>Player: Adventurer | ID: Guest</p>
-        <p class="result result-sub" id="overDetail">Target 1,000</p>
+        <p class="eyebrow" id="overEyebrow">シフト終了</p>
+        <h2 class="title title-sm" id="overTitle">タイムアップ！</h2>
+        <p class="result">獲得したお宝の総額：<span id="overScore">0</span></p>
+        <p class="result result-sub" id="overPlayer" hidden>プレイヤー：冒険者 ｜ ID: ゲスト</p>
+        <p class="result result-sub" id="overDetail">目標 1,000</p>
         <p class="footnote" id="overNote">
-          Take a screenshot and share your success through the button below.
+          スクリーンショットを撮って、下のボタンから戦績をシェアしよう。
         </p>
         <div class="btn-row">
-          <button class="btn btn-share" id="shareBtn" type="button" hidden>Share to Discord</button>
-          <button class="btn btn-primary" id="retryBtn" type="button" hidden>Try Again</button>
-          <button class="btn btn-primary" id="nextBtn" type="button" hidden>Next Chapter</button>
-          <button class="btn btn-primary" id="againBtn" type="button" hidden>Play Again</button>
+          <button class="btn btn-share" id="shareBtn" type="button" hidden>Discordでシェア</button>
+          <button class="btn btn-primary" id="retryBtn" type="button" hidden>もう一度挑戦</button>
+          <button class="btn btn-primary" id="nextBtn" type="button" hidden>次のチャプターへ</button>
+          <button class="btn btn-primary" id="againBtn" type="button" hidden>最初からプレイ</button>
         </div>
         <a
           class="channel-link"
           id="channelLink"
-          href="https://discord.com/channels/611028792911200256/1569619127012827146"
+          href="https://discord.com/channels/687593994884087809/1569654728495730718"
           target="_blank"
           rel="noopener noreferrer"
           hidden
-        >View in Discord Channel</a>
+        >Discordチャンネルで見る</a>
       </div>
     </div>
   </div>

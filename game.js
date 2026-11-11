@@ -1422,7 +1422,7 @@ function buildSharePayload(totalScore) {
             '**プレイヤー:** ' + mention + '\n' +
             '**総獲得スコア:** ' + formatNumber(totalScore) + ' pts\n' +
             '**称号:** ステージ3 チャレンジャー ⛏️',
-          color: 0xFFD700,
+          color: 0xD32F2F,
           image: { url: DISCORD_DEFEAT_SHARE_IMAGE },
           footer: { text: '深淵トレジャーディガー ｜ 第五人格 NGP' },
           timestamp: new Date().toISOString()

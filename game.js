@@ -1311,7 +1311,7 @@ async function fetchDiscordUser(accessToken) {
 function renderPlayerLabels() {
   const idText = player.id || PLAYER_FALLBACK_ID;
   if (startPlayerEl) {
-    startPlayerEl.textContent = 'マイナー：' + player.username + '（ID: ' + idText + '）';
+    startPlayerEl.textContent = '採掘者：' + player.username + '（ID: ' + idText + '）';
   }
   if (overPlayerEl) {
     overPlayerEl.textContent = 'プレイヤー：' + player.username + ' ｜ ID: ' + idText;

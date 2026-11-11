@@ -505,7 +505,7 @@ function endGame() {
         detail:
           '目標 ' + formatNumber(level.target) +
           ' ・ あと ' + formatNumber(level.target - game.score),
-        note: '最深部の扉は閉ざされたままだ。目標 ' +
+        note: '最深部の宝物庫は閉ざされたままだ。目標 ' +
           formatNumber(level.target) + ' target.',
         showRetry: true
       });
@@ -516,7 +516,7 @@ function endGame() {
     game.finalScore = game.score;
 
     showResult({
-      eyebrow: '全チャプター制覇',
+      eyebrow: '全章制覇',
       title: '完全制覇！',
       score: sumChapterScores(),
       detail: chapterBreakdown(),
@@ -1401,8 +1401,8 @@ function buildSharePayload(totalScore) {
   const mention = player.id ? '<@' + player.id + '>' : player.username;
   const content = player.id
     ? mention +
-      ' おめでとうございます！「深淵トレジャーディガー」全チャプター制覇達成！莫大なお宝を手に入れました！🏆'
-    : 'おめでとう、冒険者！「深淵トレジャーディガー」全チャプターを制覇した！🏆';
+      ' おめでとうございます！「深淵トレジャーディガー」全章制覇達成！莫大なお宝を手に入れました！🏆'
+    : 'おめでとう、冒険者！「深淵トレジャーディガー」全章を制覇した！🏆';
 
   return {
     content: content,
@@ -1411,8 +1411,7 @@ function buildSharePayload(totalScore) {
         title: '🏆 深淵トレジャーディガー：完全制覇',
         description:
           '**プレイヤー:** ' + mention + '\n' +
-          '**総獲得スコア:** ' + formatNumber(totalScore) + ' pts\n' +
-          '**称号:** マスター・マイナー認定 ⛏️',
+          '**総獲得スコア:** ' + formatNumber(totalScore) + ' pts\n',
         color: 0xFFD700,
         image: { url: DISCORD_SHARE_IMAGE },
         footer: { text: '深淵トレジャーディガー ｜ 第五人格 NGP' },
@@ -1429,7 +1428,7 @@ async function shareToDiscord() {
   const totalScore = game.finalScore || game.score;
 
   shareBtnEl.disabled = true;
-  shareBtnEl.textContent = '送信中...';
+  shareBtnEl.textContent = 'シェア中...';
   if (channelLinkEl) channelLinkEl.hidden = true;
 
   try {

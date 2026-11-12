@@ -1413,8 +1413,8 @@ function buildSharePayload(totalScore) {
   if (game.shareMode === 'defeat') {
     return {
       content:
-        mention + ' 💥 あと一歩…！ステージ3で力尽きました。それでも合計 ' +
-        formatNumber(totalScore) + ' 点を獲得！誰か超えてみて！',
+        mention + ' 💥 あと一歩…！ステージ3で力尽きましたが、合計 ' +
+        formatNumber(totalScore) + ' 点を獲得！誰かリベンジして！',
       embeds: [
         {
           title: '💥 深淵トレジャーディガー：ステージ3 敗退',
@@ -1433,8 +1433,8 @@ function buildSharePayload(totalScore) {
 
   const content = player.id
     ? mention +
-      ' おめでとうございます！「深淵トレジャーディガー」全ステージ制覇！すごいお宝を手に入れました！🏆'
-    : 'おめでとう、冒険者！「深淵トレジャーディガー」全ステージ制覇！すごいお宝を手に入れました！🏆';
+      ' おめでとうございます！「深淵トレジャーディガー」全章制覇達成！莫大なお宝を手に入れました！🏆'
+    : 'おめでとう、冒険者！「深淵トレジャーディガー」全章を制覇した！🏆';
 
   return {
     content: content,
@@ -1444,7 +1444,6 @@ function buildSharePayload(totalScore) {
         description:
           '**プレイヤー:** ' + mention + '\n' +
           '**総獲得スコア:** ' + formatNumber(totalScore) + ' pts\n',
-          '**称号:** 深淵の征服者 👑',
         color: 0xFFD700,
         image: { url: DISCORD_SHARE_IMAGE },
         footer: { text: '深淵トレジャーディガー ｜ 第五人格 NGP' },
